@@ -1,10 +1,9 @@
 import {ErrorRequestHandler, RequestHandler} from "express-serve-static-core";
-
-const createError = require("http-errors");
-const express = require("express");
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
+import createError from "http-errors";
+import express from "express";
+import path from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -26,19 +25,19 @@ app.use("/ts-node-dev", indexRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function (require, response, next) {
   next(createError(404));
 } as RequestHandler);
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function (error, require, response, next) {
   // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  response.locals.message = error.message;
+  response.locals.error = require.app.get("env") === "development" ? error : {};
 
   // render the error page
-  res.status(err.status || 500);
-  res.render("error");
+  response.status(error.status || 500);
+  response.render("error");
   next();
 } as ErrorRequestHandler);
 
